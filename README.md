@@ -15,7 +15,7 @@ The user provides raw paired-end sequencing reads. [**Trim Galore v0.6.10**](htt
 
 Usage
 -----
-	Please put your raw paired-end FASTQ files into the folder "reads/" and ensure the 
+	Please put your raw paired-end FASTQ files into a new folder titled "reads/" and ensure 
 		that the files end with the suffix ".fastq.gz". The sample name should precede
 		the read pair  designation. e.g., the files for SampleA would be 
 		"SampleA_1.fastq.gz" and "SampleA_2.fastq.gz".
