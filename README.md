@@ -6,6 +6,7 @@ This Nextflow pipeline quantifies transcript abundance from raw sequencing data.
 - [Workflow](#workflow)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
+- [Example](#example)
 - [License](#license)
 - [Citations](#citations)
 
@@ -66,6 +67,33 @@ mamba install -c conda-forge singularity
 ````
 
 Containers for software used in the workflow are hosted on [**Docker Hub**](https://hub.docker.com/u/bryoinformatics) and will be downloaded automatically.
+
+Example
+------------
+A working example can be performed using the sample data distributed with this package
+
+Step 1: Download the repository and change directory.
+````
+```
+git clone https://github.com/bryoinformatics/RNAseq.git
+cd RNAseq
+```
+````
+
+Step 2: Make a new directory called "reads/" and move the sample FASTQ files into it.
+````
+```
+mkdir reads
+cp sample_data/*.fastq.gz reads/
+```
+````
+
+Step 3: Run the pipeline.
+````
+```
+nextflow run --genome sample_data/genome.fa.gz --transcriptome sample_data/transcripts.fa.gz main.nf
+```
+````
 
 License
 -------
