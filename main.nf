@@ -109,7 +109,7 @@ Inputs:
 process FASTQC {
 	tag "Processing $sampleId"
 	
-    publishDir './results/fastqc_raw', mode:'copy'
+	publishDir './results/fastqc_raw', mode:'copy'
 
 	input:
 		tuple val(sampleId), file(reads_ch)
@@ -118,7 +118,7 @@ process FASTQC {
 		tuple val(sampleId), path("${sampleId}_{1,2}_fastqc.html")
 		tuple val(sampleId), path("${sampleId}_{1,2}_fastqc.zip")
 	
-    script:
+	script:
 		"""
 		fastqc ${reads_ch} -q -t $task.cpus
 		"""
@@ -136,7 +136,7 @@ process TRIM {
 	output:
 		tuple val(sampleId), path("${sampleId}_{1,2}_val_{1,2}.fq.gz"), emit: trimmed_reads
 	
-    script:
+	script:
 		"""
 		trim_galore --max_n 4 --cores $task.cpus --paired --gzip ${reads_ch}
 		"""
@@ -146,7 +146,7 @@ process TRIM {
 process FASTQC_TRIM {
 	tag "Processing $sampleId"
 	
-    publishDir './results/fastqc_trimmed', mode:'copy'
+	publishDir './results/fastqc_trimmed', mode:'copy'
 
 	input:
 		tuple val(sampleId), path(trimmed_reads)
@@ -155,7 +155,7 @@ process FASTQC_TRIM {
 		tuple val(sampleId), path("${sampleId}_{1,2}_val_{1,2}_fastqc.html")
 		tuple val(sampleId), path("${sampleId}_{1,2}_val_{1,2}_fastqc.zip")
 	
-    script:
+	script:
 		"""
 		fastqc ${trimmed_reads[0]} ${trimmed_reads[1]} -q -t $task.cpus
 		"""
@@ -169,10 +169,10 @@ process INDEX {
 		path genome_ch
 		path transcripts_ch
 	
-    output:
+	output:
 		path index
 	
-    script:
+	script:
 		"""
 		zcat ${genome_ch} | grep "^>" | cut -d " " -f 1 | sed 's/>//g' > decoys
 		zcat ${transcripts_ch} ${genome_ch} > gentrome
@@ -186,14 +186,14 @@ process QUANT {
 	
 	publishDir "results/quantified_transcripts", mode:'copy'
 	
-    input:
+	input:
 		each index
 		tuple val(sampleId), path(trimmed_reads)
 	
 	output:
 		path "$sampleId/quant.sf"
 	
-    script:
+	script:
 		"""
 		salmon quant \
 			--threads $task.cpus --libType A -i $index \
