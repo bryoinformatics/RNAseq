@@ -1,4 +1,4 @@
-# RNAseq (v1.1)
+# RNAseq (v1.0.0)
 
 This Nextflow pipeline quantifies transcript abundance from raw sequencing data.
 
